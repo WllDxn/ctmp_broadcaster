@@ -137,7 +137,6 @@ void Server::handleSourceClient(int client_fd) {
 
 // Send valid messages to receiver clients
 void Server::broadcastMessage(const CTMPMessage& msg) {
-    std::cout<<msg.isValid<<"'\n";
     if (!msg.isValid) {
         std::cerr << "Invalid CTMP message dropped" << std::endl;
         return;

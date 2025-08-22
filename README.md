@@ -1,3 +1,16 @@
+            ██╗    ██╗██╗██████╗ ███████╗    ███████╗████████╗ ██████╗ ██████╗ ███╗   ███╗
+            ██║    ██║██║██╔══██╗██╔════╝    ██╔════╝╚══██╔══╝██╔═══██╗██╔══██╗████╗ ████║    ██╗
+            ██║ █╗ ██║██║██████╔╝█████╗      ███████╗   ██║   ██║   ██║██████╔╝██╔████╔██║    ╚═╝
+            ██║███╗██║██║██╔══██╗██╔══╝      ╚════██║   ██║   ██║   ██║██╔══██╗██║╚██╔╝██║    ██╗
+            ╚███╔███╔╝██║██║  ██║███████╗    ███████║   ██║   ╚██████╔╝██║  ██║██║ ╚═╝ ██║    ╚═╝
+             ╚══╝╚══╝ ╚═╝╚═╝  ╚═╝╚══════╝    ╚══════╝   ╚═╝    ╚═════╝ ╚═╝  ╚═╝╚═╝     ╚═╝
+
+           ______     ______     __         ______     ______     _____     ______     _____
+          /\  == \   /\  ___\   /\ \       /\  __ \   /\  __ \   /\  __-.  /\  ___\   /\  __-.
+          \ \  __<   \ \  __\   \ \ \____  \ \ \/\ \  \ \  __ \  \ \ \/\ \ \ \  __\   \ \ \/\ \
+           \ \_\ \_\  \ \_____\  \ \_____\  \ \_____\  \ \_\ \_\  \ \____-  \ \_____\  \ \____-
+            \/_/ /_/   \/_____/   \/_____/   \/_____/   \/_/\/_/   \/____/   \/_____/   \/____/
+
 # CTMP Broadcaster
 
 A simple C++ server that broadcasts CTMP (Custom Transmission Message Protocol) messages from a single source client (port 33333) to multiple destination clients (port 44444). The server ensures only one source client is connected at a time, rejecting additional source connections, and efficiently distributes valid CTMP messages to all connected destination clients.
@@ -9,6 +22,7 @@ A simple C++ server that broadcasts CTMP (Custom Transmission Message Protocol) 
 - Thread-safe handling of client connections using mutexes.
 - Validates CTMP message format (8-byte header + variable-length data).
 - Cleans up disconnected clients to prevent resource leaks.
+- Supports validation via checksum
 
 ## Prerequisites (local build)
 
@@ -77,3 +91,17 @@ A simple C++ server that broadcasts CTMP (Custom Transmission Message Protocol) 
 4. Send CTMP messages from the source client (format: 1 byte magic `0xFF`, 1 byte padding `0x00`, 2 bytes length, 4 bytes padding, variable-length data).
 
 5. Destination clients will receive broadcast messages.
+
+                        ███╗   ███╗██╗███████╗███████╗██╗ ██████╗ ███╗   ██╗
+                        ████╗ ████║██║██╔════╝██╔════╝██║██╔═══██╗████╗  ██║
+                        ██╔████╔██║██║███████╗███████╗██║██║   ██║██╔██╗ ██║
+                        ██║╚██╔╝██║██║╚════██║╚════██║██║██║   ██║██║╚██╗██║
+                        ██║ ╚═╝ ██║██║███████║███████║██║╚██████╔╝██║ ╚████║
+                        ╚═╝     ╚═╝╚═╝╚══════╝╚══════╝╚═╝ ╚═════╝ ╚═╝  ╚═══╝
+
+                 ██████╗ ██████╗ ███╗   ███╗██████╗ ██╗     ███████╗████████╗███████╗
+                ██╔════╝██╔═══██╗████╗ ████║██╔══██╗██║     ██╔════╝╚══██╔══╝██╔════╝
+                ██║     ██║   ██║██╔████╔██║██████╔╝██║     █████╗     ██║   █████╗
+                ██║     ██║   ██║██║╚██╔╝██║██╔═══╝ ██║     ██╔══╝     ██║   ██╔══╝
+                ╚██████╗╚██████╔╝██║ ╚═╝ ██║██║     ███████╗███████╗   ██║   ███████╗
+                 ╚═════╝ ╚═════╝ ╚═╝     ╚═╝╚═╝     ╚══════╝╚══════╝   ╚═╝   ╚══════╝

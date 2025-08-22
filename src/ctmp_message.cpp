@@ -74,13 +74,16 @@ namespace ctmp
         // Copy data, read to end of buffer or end of message.
         msg.data = std::vector<uint8_t>(buffer.begin() + 8, std::min(buffer.begin() + 8 + msg.length, buffer.end()));
         // Validate checksum
-        uint16_t cksum = !sensitive ? msg.checksum : validate_checksum(buffer);
+        uint16_t cksum = sensitive ?  validate_checksum(buffer) : msg.checksum ;
         msg.isValid = true;
         if (msg.magic != CTMP_MAGIC)
         {
             msg.isValid = false;
         }
         msg.isValid = (msg.isValid && (cksum == msg.checksum));
+        if (sensitive && !(cksum == msg.checksum)){
+            std::cerr << "Invalid checksum on sensitive CTMPMessage. Not sending." << '\n';
+        }
         return msg;
     }
 

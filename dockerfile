@@ -7,8 +7,11 @@ RUN apt-get update && apt-get install -y cmake build-essential
 # Set working directory
 WORKDIR /app
 
+RUN mkdir src && mkdir include
 # Copy source files
-COPY . .
+COPY CMakeLists.txt CMakePresets.json ./
+COPY src ./src
+COPY include ./include
 
 # Create build directory and compile
 RUN mkdir build && cd build && cmake .. && make
