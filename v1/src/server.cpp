@@ -137,7 +137,6 @@ void Server::handleSourceClient(int client_fd) {
 
 // Send valid messages to receiver clients
 void Server::broadcastMessage(const CTMPMessage& msg) {
-    std::cout<<msg.isValid<<"'\n";
     if (!msg.isValid) {
         std::cerr << "Invalid CTMP message dropped" << std::endl;
         return;
@@ -145,12 +144,10 @@ void Server::broadcastMessage(const CTMPMessage& msg) {
 
     std::vector<uint8_t> buffer;
     buffer.push_back(msg.magic);
-    buffer.push_back(msg.options);
+    buffer.push_back(msg.padding);
     buffer.push_back(static_cast<uint8_t>(msg.length >> 8));
     buffer.push_back(static_cast<uint8_t>(msg.length & 0xFF));
-    buffer.push_back(static_cast<uint8_t>(msg.checksum >> 8));
-    buffer.push_back(static_cast<uint8_t>(msg.checksum & 0xFF));
-    buffer.resize(buffer.size() + 2, CTMP_PADDING);
+    buffer.resize(buffer.size() + 4, msg.padding);
     buffer.insert(buffer.end(), msg.data.begin(), msg.data.end());
 
     std::lock_guard<std::mutex> lock(clients_mutex_);
