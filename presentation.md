@@ -435,4 +435,8 @@ CTMPMessage parseMessage(const std::vector<uint8_t> &buffer)
  - Add value of word to sum
  - If sum > 0xFFFF (65535), it has overflowed 16-bit range.
     - Wrap around overflow by adding carry (sum >> 16) back into lower 16 bits.
- - Handle odd number of bytes by padding with zero
+ - Handle odd number of bytes by padding with zero.
+
+# Improvements
+ - Move write logic for destination clients into server.cpp as this is the only functionality they recquire and therefore do not need to be the same type of object as source clients. 
+ - Clean up references to mutex from earlier versions of implementation.
