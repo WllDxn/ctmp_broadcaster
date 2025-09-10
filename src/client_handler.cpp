@@ -60,7 +60,7 @@ namespace ctmp
             if (bytes_read <= 0)
             {
                 std::cerr << "Read error or client disconnected on fd " << fd_ << std::endl;
-                running_ = false;
+                stop();
                 break;
             }
 

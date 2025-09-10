@@ -17,7 +17,7 @@ private:
     int source_socket_;
     int dest_socket_;
     mutable std::mutex clients_mutex_;
-    std::vector<std::unique_ptr<ClientHandler>> dest_clients_;
+    std::vector<int> dest_clients_;
     std::unique_ptr<ClientHandler> source_client_;
     void handleSourceClient(int client_fd);
     void broadcastMessage(const CTMPMessage& msg);
